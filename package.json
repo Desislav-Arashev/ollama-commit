@@ -3,7 +3,7 @@
   "displayName": "Ollama Commit",
   "description": "Generate Git commit messages using Ollama.",
   "version": "0.1.0",
-  "publisher": "desislav-arashev",
+  "publisher": "DesislavArashev",
   "engines": {
     "vscode": "^1.80.0"
   },
