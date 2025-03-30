@@ -1,0 +1,90 @@
+{
+  "name": "ollama-commit",
+  "displayName": "Ollama Commit",
+  "description": "Generate Git commit messages using Ollama.",
+  "version": "0.1.0",
+  "publisher": "desislav-arashev",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "SCM Providers"
+  ],
+  "icon": "images/icon.png",
+  "activationEvents": [
+    "onCommand:ollama-commit.generate",
+    "onView:workbench.view.scm"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "ollama-commit.generate",
+        "title": "Ollama Commit: Generate Message",
+        "icon": "$(sparkle)"
+      }
+    ],
+    "menus": {
+      "scm/title": [
+        {
+          "command": "ollama-commit.generate",
+          "when": "scmProvider == git",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Ollama Commit",
+      "properties": {
+        "ollama-commit.apiUrl": {
+          "type": "string",
+          "default": "http://localhost:11434/api/generate",
+          "description": "URL of the Ollama API generate endpoint."
+        },
+        "ollama-commit.model": {
+          "type": "string",
+          "default": "qwen2.5-coder:7b",
+          "description": "Ollama model to use for generation (must be available locally)."
+        },
+        "ollama-commit.prompt": {
+          "type": "string",
+          "default": "Generate a concise, imperative git commit message written in the present tense for the following code changes:\n\n```diff\n{diff}\n```\n\nCommit message:",
+          "description": "Prompt template for Ollama. Use '{diff}' as placeholder for the git diff."
+        },
+        "ollama-commit.maxDiffLength": {
+          "type": "number",
+          "default": 4000,
+          "description": "Maximum length of the git diff (in characters) to send to Ollama. Prevents overly long requests."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "18.x",
+    "@types/vscode": "^1.80.0",
+    "@typescript-eslint/eslint-plugin": "^8.28.0",
+    "@typescript-eslint/parser": "^8.28.0",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1",
+    "eslint": "^8.44.0",
+    "typescript": "^5.1.6",
+    "ts-loader": "^9.4.4",
+    "webpack": "^5.88.1",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "axios": "^1.5.0"
+  }
+}
