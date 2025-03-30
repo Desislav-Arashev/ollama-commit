@@ -1,71 +1,43 @@
 # ollama-commit README
 
-This is the README for your extension "ollama-commit". After writing up a brief description, we recommend including the following sections.
-
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+The "Ollama Commit" extension generates Git commit messages using the Ollama API. It helps you create concise, imperative commit messages based on the staged changes in your repository.
 
-For example if there is an image subfolder under your extension project workspace:
+### Screenshots
 
-\!\[feature X\]\(images/feature-x.png\)
+![Feature Screenshot](images/feature-screenshot.png)
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+### Animations
+
+![Feature Animation](images/feature-animation.gif)
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+- Visual Studio Code version 1.80.0 or higher
+- Ollama API running locally
+
+### Installation
+
+1. Install Visual Studio Code from [here](https://code.visualstudio.com/).
+2. Install the "Ollama Commit" extension from the VS Code marketplace.
+3. Ensure the Ollama API is running locally.
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
 This extension contributes the following settings:
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+* `ollama-commit.apiUrl`: URL of the Ollama API generate endpoint.
+* `ollama-commit.model`: Ollama model to use for generation (must be available locally).
+* `ollama-commit.prompt`: Prompt template for Ollama. Use '{diff}' as placeholder for the git diff.
+* `ollama-commit.maxDiffLength`: Maximum length of the git diff (in characters) to send to Ollama. Prevents overly long requests.
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+- No known issues at the moment.
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
+### 0.1.0
 
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+- Initial release of Ollama Commit
