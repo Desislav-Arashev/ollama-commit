@@ -1,4 +1,4 @@
-# ollama-commit README
+# ollama-commit
 
 ## Features
 
