@@ -4,10 +4,6 @@
 
 The "Ollama Commit" extension generates Git commit messages using the Ollama API. It helps you create concise, imperative commit messages based on the staged changes in your repository.
 
-### Animations
-
-![Feature Animation](images/feature-animation.gif)
-
 ## Requirements
 
 - Visual Studio Code version 1.80.0 or higher
