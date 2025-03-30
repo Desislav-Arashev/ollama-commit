@@ -4,10 +4,6 @@
 
 The "Ollama Commit" extension generates Git commit messages using the Ollama API. It helps you create concise, imperative commit messages based on the staged changes in your repository.
 
-### Screenshots
-
-![Feature Screenshot](images/feature-screenshot.png)
-
 ### Animations
 
 ![Feature Animation](images/feature-animation.gif)
