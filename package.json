@@ -55,6 +55,16 @@
           "type": "number",
           "default": 4000,
           "description": "Maximum length of the git diff (in characters) to send to Ollama. Prevents overly long requests."
+        },
+        "ollama-commit.commitFormat": {
+          "type": "string",
+          "default": "default",
+          "enum": ["default", "conventional"],
+          "enumDescriptions": [
+            "Standard commit message format",
+            "Conventional Commits format (feat:, fix:, docs:, etc.)"
+          ],
+          "description": "Commit message format style. Use 'conventional' for Conventional Commits specification."
         }
       }
     }
