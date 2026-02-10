@@ -86,16 +86,27 @@ async function generateCommitMessage(diff: string): Promise<string | null> {
     const config = vscode.workspace.getConfiguration('ollama-commit');
     const apiUrl = config.get<string>('apiUrl');
     const model = config.get<string>('model');
-    const promptTemplate = config.get<string>('prompt');
+    let promptTemplate = config.get<string>('prompt');
+    const commitFormat = config.get<string>('commitFormat', 'default');
     const maxDiffLength = config.get<number>('maxDiffLength', 4000);
 
-    if (!apiUrl || !model || !promptTemplate) {
-        vscode.window.showErrorMessage('Ollama Commit configuration is missing (API URL, Model, or Prompt). Please check settings.');
+    if (!apiUrl || !model) {
+        vscode.window.showErrorMessage('Ollama Commit configuration is missing (API URL or Model). Please check settings.');
         return null;
     }
 
+    // Define default prompts
+    const defaultPrompt = `Generate a concise, imperative git commit message written in the present tense for the following code changes:\n\n\`\`\`diff\n{diff}\n\`\`\`\n\nCommit message:`;
+    const conventionalPrompt = `You are an expert in Git and conventional commits. Based on the following code changes, generate a concise, imperative, present-tense commit message strictly following the Conventional Commits format.\n\nThe format must be: <type>: <description>\n\nWhere <type> is one of:\n- feat: A new feature\n- fix: A bug fix\n- docs: Documentation only changes\n- style: Changes that do not affect the meaning of the code (white-space, formatting, etc.)\n- refactor: A code change that neither fixes a bug nor adds a feature\n- perf: A code change that improves performance\n- test: Adding missing tests or correcting existing tests\n- chore: Changes to the build process or auxiliary tools\n\nExample: feat: add new login button\n\nHere are the changes:\n\`\`\`diff\n{diff}\n\`\`\`\n\nCommit message:`;
+
+    // Use conventional prompt if format is set to conventional and user hasn't customized the prompt
+    let finalPromptTemplate = promptTemplate || defaultPrompt;
+    if (commitFormat === 'conventional' && (!promptTemplate || promptTemplate === defaultPrompt)) {
+        finalPromptTemplate = conventionalPrompt;
+    }
+
     const truncatedDiff = diff.length > maxDiffLength ? diff.substring(0, maxDiffLength) + "\n... (diff truncated)" : diff;
-    const finalPrompt = promptTemplate.replace('{diff}', truncatedDiff);
+    const finalPrompt = finalPromptTemplate.replace('{diff}', truncatedDiff);
 
     try {
         // *** REMOVED <string> generic ***
